@@ -1,0 +1,117 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=0.8">
+</head>
+
+<body style="font-family:gill sans">
+
+	<canvas id="c" style="width:600px;height:600px;margin:25px auto;display:block;"></canvas>
+
+	<script>
+
+		var c = document.getElementById("c")
+		var ctx = c.getContext("2d")
+
+		c.width = 600;
+		c.height = 600;
+
+		var seats = []
+		var next = 1
+
+
+		function random(scale) {
+			return Math.floor(Math.random()*scale)
+		}
+
+		seats[random(100)] = "stolen";
+
+
+		function tick() {
+
+			ctx.clearRect(0,0,1000,1000)
+
+			if (next < 100) {
+
+				if (!seats[next]) {
+					seats[next] = "ticketed"
+				} else {
+					var seatfound = false
+					while (!seatfound) {
+						var newseat = random(100)
+						if (!seats[newseat]) {
+							seats[newseat] = "stolen"
+							seatfound = true
+						}
+						
+					}
+				}
+				next++
+
+			} else {
+				clearInterval(interval)
+				setTimeout(reset,4000)
+				conclude();
+			}
+
+
+			for (var i=0;i<100;i++) {
+				if (seats[i]=="ticketed") {
+					ctx.fillStyle = "#0af"
+				} else if (seats[i]=="stolen") {
+					ctx.fillStyle = "#d14"
+				} else {
+					ctx.fillStyle = "#eee"
+				} 
+				var x = i*15 - Math.floor(i/5)*75
+				var y = Math.floor(i/5)*15
+				ctx.fillRect(x,y,10,10)
+			}
+			if (seats[99]) {
+				ctx.fillStyle = "#333"
+				ctx.strokeStyle = "#333"
+				ctx.lineWidth = 1
+				ctx.strokeRect(x,y,10,10)
+				/*ctx.beginPath()
+					ctx.arc(x+5,y+5,5,0,Math.PI*2)
+					ctx.stroke();
+				ctx.closePath() */
+				ctx.fillText("you",75,293)
+			}
+
+		}
+
+
+
+
+		var interval = setInterval(tick,50)
+
+		function reset() {
+			seats = new Array();
+			next = 1
+			seats[random(100)] = "stolen";
+			interval = setInterval(tick,50)
+			results.innerHTML = ""
+		}
+
+
+		var results = document.getElementById("results")
+
+		function conclude() {
+			var htmlstr = "<br>"
+			if (seats[seats.length-1]=="stolen") {
+				htmlstr += "<div style='font-size:16pt;color:#d14'>Sorry, some jerk stole your seat!</div>"
+			} else {
+				htmlstr += "<div style='font-size:16pt;color:#0af'>Congrats, you can sit in your own seat!</div>"
+			}
+			var tally = 0;
+			for (var i=0;i<seats.length;i++) {
+				if (seats[i]=="stolen") { tally++ }
+			}
+			htmlstr += "<br>" + tally + " passengers had their seat stolen"
+			results.innerHTML = htmlstr
+			
+		}
+
+	</script>
+</body>
+</html>
