@@ -1,6 +1,6 @@
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=0.4">
+	<meta name="viewport" content="width=device-width, initial-scale=0.8">
 </head>
 
 <body style="font-family:gill sans">
@@ -70,6 +70,13 @@
 				var y = Math.floor(i/5)*15
 				ctx.fillRect(x,y,10,10)
 			}
+			ctx.fillStyle = "#999"
+			ctx.strokeStyle = "#999"
+			ctx.beginPath()
+				ctx.arc(x+5,y+5,5,0,Math.PI*2)
+				ctx.stroke();
+			ctx.closePath()
+			ctx.fillText("you",75,293)
 
 		}
 
@@ -94,7 +101,7 @@
 			if (seats[seats.length-1]=="stolen") {
 				htmlstr += "<div style='font-size:16pt;color:#d14'>Sorry, some jerk stole your seat!</div>"
 			} else {
-				htmlstr += "<div style='font-size:16pt;color:#0af'>Congrats, you sat in your own seat!</div>"
+				htmlstr += "<div style='font-size:16pt;color:#0af'>Congrats, you can sit in your own seat!</div>"
 			}
 			var tally = 0;
 			for (var i=0;i<seats.length;i++) {
