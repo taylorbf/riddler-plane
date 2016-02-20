@@ -34,6 +34,8 @@
 
 		function tick() {
 
+			ctx.clearRect(0,0,1000,1000)
+
 			if (next < 100) {
 
 				if (!seats[next]) {
@@ -53,7 +55,7 @@
 
 			} else {
 				clearInterval(interval)
-				setTimeout(reset,3000)
+				setTimeout(reset,4000)
 				conclude();
 			}
 
@@ -70,13 +72,17 @@
 				var y = Math.floor(i/5)*15
 				ctx.fillRect(x,y,10,10)
 			}
-			ctx.fillStyle = "#999"
-			ctx.strokeStyle = "#999"
-			ctx.beginPath()
-				ctx.arc(x+5,y+5,5,0,Math.PI*2)
-				ctx.stroke();
-			ctx.closePath()
-			ctx.fillText("you",75,293)
+			if (seats[99]) {
+				ctx.fillStyle = "#333"
+				ctx.strokeStyle = "#333"
+				ctx.lineWidth = 1
+				ctx.strokeRect(x,y,10,10)
+				/*ctx.beginPath()
+					ctx.arc(x+5,y+5,5,0,Math.PI*2)
+					ctx.stroke();
+				ctx.closePath() */
+				ctx.fillText("you",75,293)
+			}
 
 		}
 
