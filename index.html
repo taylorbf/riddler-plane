@@ -21,15 +21,17 @@
 		c.width = 110;
 		c.height = 300;
 
-		var seats = []
-		var next = 1
+		//reset()
+
+		//var seats = []
+		//var next = 1
 
 
 		function random(scale) {
 			return Math.floor(Math.random()*scale)
 		}
 
-		seats[random(100)] = "stolen";
+		//seats[random(100)] = "stolen";
 
 
 		function tick() {
@@ -38,8 +40,8 @@
 
 			if (next < 100) {
 
-				if (!seats[next]) {
-					seats[next] = "ticketed"
+				if (!seats[order[next]]) {
+					seats[order[next]] = "ticketed"
 				} else {
 					var seatfound = false
 					while (!seatfound) {
@@ -89,7 +91,7 @@
 
 
 
-		var interval = setInterval(tick,50)
+		//var interval = setInterval(tick,50)
 
 		function reset() {
 			seats = new Array();
@@ -117,6 +119,35 @@
 			results.innerHTML = htmlstr
 			
 		}
+
+
+
+
+		function shuffle(o) {
+		  var j, x, i;
+		  for (i = o.length; i; i -= 1) {
+		    j = Math.floor(Math.random() * i);
+		    x = o[i-1];
+		    o[i-1] = o[j];
+		    o[j] = x;
+		  }
+
+		  return o;
+		}
+
+		var myArray = ['1','2','3','4','5','6','7','8','9'];
+		shuffle(myArray);
+
+		var order = []
+		for (var i=0;i<100;i++)	{
+			order[i] = i
+ 		}
+ 		order = shuffle(order)
+ 		console.log(order)
+
+
+
+		reset();
 
 	</script>
 </body>
